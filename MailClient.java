@@ -34,7 +34,7 @@ public class MailClient
      */
     public MailItem getNextMailItem()
     {
-       
+
         String message = email.getMessage();
 
         if ((message.contains("regalo")) || (message.contains("promocion")))
@@ -47,15 +47,15 @@ public class MailClient
         }
         return email;
     }
-    
+
     /**
      *Metodo que imprime el mensaje del correo
      */
     public void printNextMailItem()
     {
-        
+
         String message = email.getMessage();
-        
+
         if (email == null) {
             System.out.println("No hay mensajes.");
         }
@@ -75,8 +75,8 @@ public class MailClient
             countRecive = countRecive + 1;
         }
     }
-   
-   /**
+
+    /**
      *Metodo sendMailItem envia mensaje.
      */
     public void sendMailItem(String to, String subject, String message){
@@ -84,7 +84,7 @@ public class MailClient
         server.post(emailToSend);
         countSend = countSend + 1;
     }
-    
+
     /**
      * Metodo para saber cuantos correos tenemos para nosotros
      */
@@ -92,14 +92,14 @@ public class MailClient
     {
         System.out.println("Tienes " + server.howManyMailItems(user) + " correos pendientes.");
     }
-    
-     /**
+
+    /**
      * Metodo para contestar automaticamente al emisor del mensaje.
      */
     public void getNextMailItemAndAutorespond()
     {
         MailItem email = server.getNextMailItem(user);
-  
+
         if (email != null)
         {
             String subject = "RE " + email.getSubject();
@@ -109,38 +109,55 @@ public class MailClient
             sendMailItem(from,subject, message);
         }
     }
-    
-     /**
-     * Metodo para ver el ulitmo metodo recivido.
+
+    /**
+     * Metodo para ver el ulitmo metodo recibido.
      */
     public void printLastEmail()
     {
         if (lastEmail != null)
         {
-            System.out.println("El ultimo mensaje recivido es:" + lastEmail);
+            System.out.println("El ultimo mensaje recibido es:" + lastEmail);
         }
         else
         {
-             System.out.println("No tienes ningun mensaje");
+            System.out.println("No tienes ningun mensaje");
         }
     }
+
     /**
      * Metodo para ver estadisticas
      */
-    public void sawStadistics()
+    public void showStats()
     {
         float spamPor;
         if(countRecive != 0){
-           spamPor = ((float)countSpam/countRecive) * (100);
+            spamPor = ((float)countSpam/countRecive) * (100);
         }
         else{
             spamPor = 0;
         }
-        
-        System.out.println("Emails recividos: " + countRecive);
-        System.out.println("Emails enviados: " + countSend);
-        System.out.println("Emails recividos con spam: " + spamPor + "%");
-    }
-}
 
-        
+        System.out.println("Emails recibidos: " + countRecive);
+        System.out.println("Emails enviados: " + countSend);
+        System.out.println("Emails recibidos con spam: " + spamPor + "%");
+        System.out.println("Email mas largo");
+    }
+
+    /**
+     * Metodo que muestra datos del ultimo spam recibido, sino ha recibido spam
+     * nos informa de ello
+     */
+    //public void showInfoLastSpam()
+    //{
+        //if(email==spamPor){
+            //System.out.println("De: " + from);
+           // System.out.println("A: " + to);
+           // System.out.println("Este es el asunto del mensaje: " + subject);
+           // System.out.println("Este es el mensaje: " + message);
+       // }
+       // else{
+        //    System.out.println("No tienes ningun spam");
+        //}
+    }
+
